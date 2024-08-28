@@ -1,0 +1,31 @@
+# Ignore pastas de build do .NET
+bin/
+obj/
+
+# Ignore logs
+*.log
+
+# Ignore pastas de cache do usuário
+.vscode/
+.idea/
+.terraform/
+
+# Ignore arquivos de configuração específicos do sistema
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore arquivos de pacotes NuGet
+*.nupkg
+*.snupkg
+
+# Ignore arquivos de publicação local
+.publish/
+
+# Ignore arquivos de banco de dados locais
+*.mdf
+*.ldf
+
+# Ignore arquivos de lock
+project.lock.json
