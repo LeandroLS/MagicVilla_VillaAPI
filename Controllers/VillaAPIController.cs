@@ -30,9 +30,9 @@ namespace MagicVilla_VillaAPI.Controllers
             return Ok(vila);
         }
         [HttpPost]
-        public ActionResult<VillaDto> CreateVilla([FromBody]VillaDto villaDTO)
+        public ActionResult<VillaDto> CreateVilla([FromBody] VillaDto villaDTO)
         {
-            if(villaDTO == null || villaDTO.Id > 0)
+            if (villaDTO == null || villaDTO.Id > 0)
             {
                 return BadRequest(villaDTO);
             }
@@ -40,6 +40,37 @@ namespace MagicVilla_VillaAPI.Controllers
                 .OrderByDescending(v => v.Id).FirstOrDefault().Id + 1;
             VillaStore.villaList.Add(villaDTO);
             return Ok(villaDTO);
+        }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteVilla(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+            var villa = VillaStore.villaList.FirstOrDefault(v => v.Id == id);
+            if (villa == null)
+            {
+                return NotFound();
+            }
+            VillaStore.villaList.Remove(villa);
+            return NoContent();
+        }
+
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateVilla(int id, [FromBody]VillaDto villaDto)
+        {
+            if(villaDto.Id  != id || villaDto == null)
+            {
+                return BadRequest();
+            }
+            var villa = VillaStore.villaList.FirstOrDefault(v => v.Id == id);
+            villa.Name = villaDto.Name;
+            villa.Sqft = villaDto.Sqft;
+            villa.Occupancy = villaDto.Occupancy;
+
+            return NoContent();
         }
     }
 }
